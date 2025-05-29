@@ -1,11 +1,4 @@
 {
-  "functions": {
-    "api/compress.js": {
-      "runtime": "nodejs18.x",
-      "maxDuration": 10,
-      "memory": 512
-    }
-  },
   "routes": [
     {
       "src": "/api/compress",
