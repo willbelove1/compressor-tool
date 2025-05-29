@@ -1,4 +1,3 @@
-// /api/compress.js
 const sharp = require('sharp');
 const axios = require('axios');
 
@@ -17,7 +16,6 @@ module.exports = async (req, res) => {
     });
 
     const inputBuffer = Buffer.from(response.data);
-
     let outputBuffer;
 
     if (format === 'jpeg') {
@@ -32,7 +30,6 @@ module.exports = async (req, res) => {
       res.setHeader('Content-Type', 'image/webp');
     }
 
-    // Cache-control optional
     res.setHeader('Cache-Control', 'public, max-age=86400');
     res.status(200).send(outputBuffer);
   } catch (err) {
