@@ -1,13 +1,9 @@
 {
   "name": "compressor-tool",
   "version": "1.0.0",
-  "main": "api/compress.js",
   "type": "commonjs",
-  "scripts": {
-    "start": "vercel dev"
-  },
   "dependencies": {
-    "node-fetch": "^3.3.2",
-    "sharp": "^0.33.0"
+    "sharp": "^0.33.0",
+    "node-fetch": "^2.6.9"
   }
 }
