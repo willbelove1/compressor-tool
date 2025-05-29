@@ -9,23 +9,34 @@ module.exports = async (req, res) => {
       return res.status(400).send('Missing image_url');
     }
 
-    const response = await fetch(image_url);
+    // Fetch ảnh gốc
+    const response = await fetch(image_url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0',
+        'Accept': 'image/*,*/*'
+      }
+    });
+
     if (!response.ok) {
-      return res.status(406).send('Failed to fetch image');
+      return res.status(406).send(`Failed to fetch image: ${response.status}`);
     }
 
+    const contentType = response.headers.get('content-type') || 'image/jpeg';
     const buffer = await response.buffer();
 
+    // Nén ảnh
     const output = await sharp(buffer)
-      .jpeg({ quality: 50 }) // Nén xuống còn 50% chất lượng
+      .resize({ width: 1200, withoutEnlargement: true })
+      .jpeg({ quality: 60 })
       .toBuffer();
 
+    // Trả về ảnh
     res.setHeader('Content-Type', 'image/jpeg');
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-    return res.send(output);
-
+    return res.status(200).send(output);
+    
   } catch (err) {
-    console.error(err);
-    return res.status(500).send('Compression failed');
+    console.error('[Compression Error]', err);
+    return res.status(500).send('Internal Server Error');
   }
 };
