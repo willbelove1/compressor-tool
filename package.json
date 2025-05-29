@@ -1,0 +1,9 @@
+{
+  "name": "vercel-compressor",
+  "version": "1.0.0",
+  "main": "api/compress.js",
+  "dependencies": {
+    "sharp": "^0.33.1",
+    "axios": "^1.6.8"
+  }
+}
